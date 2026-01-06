@@ -47,6 +47,10 @@ penTool.addEventListener("click", function () {
   currentTool = "pen";
 });
 
+clearCanvasBtn.addEventListener("click", function () {
+    ctx.clearRect(0, 0, canvas.width, canvas.height)
+});
+
 canvas.addEventListener("mousedown", startDraw);
 canvas.addEventListener("mousemove", draw);
 canvas.addEventListener("mouseup", stopDrawing);

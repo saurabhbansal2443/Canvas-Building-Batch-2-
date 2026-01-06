@@ -7,7 +7,7 @@ const clearCanvasBtn = document.getElementById("clean");
 const DownloadDrawingBtn = document.getElementById("download");
 const canvas = document.getElementById("canvas");
 
-// Line , eraser , clear drawing , Sqaure , downaload
+// Line , eraser , clear drawing , downaload, Square
 
 const ctx = canvas.getContext("2d");
 
@@ -16,11 +16,20 @@ canvas.width = 800;
 
 let isDrawing = false;
 let currentTool = "pen";
+let isDrawingSquare = false;
 ctx.strokeStyle = colorPicker.value;
 ctx.lineWidth = brushSizeSelector.value;
 ctx.lineCap = "round";
 
+let startX = 0;
+let startY = 0;
+
 function startDraw(e) {
+  if (isDrawingSquare) {
+    startX = e.offsetX;
+    startY = e.offsetY;
+    return;
+  }
   isDrawing = true;
   ctx.beginPath();
   ctx.moveTo(e.offsetX, e.offsetY);
@@ -34,19 +43,44 @@ function draw(e) {
   ctx.beginPath();
   ctx.moveTo(e.offsetX, e.offsetY);
 }
-function stopDrawing() {
+function stopDrawing(e) {
+  if (isDrawingSquare) {
+    let endX = e.offsetX;
+    let endY = e.offsetY;
+
+    let width = endX - startX;
+    let height = endY - startY;
+    ctx.strokeStyle = colorPicker.value;
+    ctx.lineWidth = brushSizeSelector.value;
+    ctx.beginPath();
+    ctx.rect(startX, startY, width, height);
+    ctx.stroke();
+
+    return;
+  }
   isDrawing = false;
 }
 
 eraserTool.addEventListener("click", function () {
+  isDrawingSquare = false;
   penTool.classList.remove("active");
   eraserTool.classList.add("active");
+  drawSquareBtn.classList.remove("active");
   currentTool = "eraser";
 });
 penTool.addEventListener("click", function () {
+  isDrawingSquare = false;
   penTool.classList.add("active");
   eraserTool.classList.remove("active");
+  drawSquareBtn.classList.remove("active");
   currentTool = "pen";
+});
+
+drawSquareBtn.addEventListener("click", function () {
+  penTool.classList.remove("active");
+  eraserTool.classList.remove("active");
+  drawSquareBtn.classList.add("active");
+  isDrawingSquare = true;
 });
 
 clearCanvasBtn.addEventListener("click", function () {

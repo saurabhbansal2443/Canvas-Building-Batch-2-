@@ -35,6 +35,9 @@ body {
   border-radius: 5px;
   text-transform: capitalize;
 }
+.active {
+  background-color: lightsalmon;
+}
 #canvas {
   border: 0.2px solid black;
   border-radius: 16px;

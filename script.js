@@ -13,6 +13,7 @@ canvas.height = 420;
 canvas.width = 800;
 
 let isDrawing = false;
+let currentTool = "pen";
 ctx.strokeStyle = colorPicker.value;
 ctx.lineWidth = brushSizeSelector.value;
 ctx.lineCap = "round";
@@ -24,12 +25,27 @@ function startDraw(e) {
 }
 function draw(e) {
   if (!isDrawing) return;
+  ctx.strokeStyle = currentTool == "eraser" ? "#ffffff" : colorPicker.value;
+  ctx.lineWidth = brushSizeSelector.value;
   ctx.lineTo(e.offsetX, e.offsetY);
   ctx.stroke();
+  ctx.beginPath();
+  ctx.moveTo(e.offsetX, e.offsetY);
 }
 function stopDrawing() {
   isDrawing = false;
 }
+
+eraserTool.addEventListener("click", function () {
+  penTool.classList.remove("active");
+  eraserTool.classList.add("active");
+  currentTool = "eraser";
+});
+penTool.addEventListener("click", function () {
+  penTool.classList.add("active");
+  eraserTool.classList.remove("active");
+  currentTool = "pen";
+});
 
 canvas.addEventListener("mousedown", startDraw);
 canvas.addEventListener("mousemove", draw);

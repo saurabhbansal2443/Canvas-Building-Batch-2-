@@ -6,6 +6,23 @@
     <title>Document</title>
     <link rel="stylesheet" href="style.css" />
   </head>
-  <body></body>
+  <body>
+    <div class="tools">
+      <div class="colorInput">
+        <label for="color">Color:</label>
+        <input type="color" name="" id="color" value="#000000" />
+      </div>
+      <div class="brushSizeInput">
+        <label for="BrushSize">Brush Size:</label>
+        <input type="range" name="" id="BrushSize" min="5" max="20" />
+      </div>
+      <button id="pen" class="btn">Pen</button>
+      <button id="eraser" class="btn">Eraser</button>
+      <button id="square" class="btn">Square</button>
+      <button id="clean" class="btn">Clean</button>
+      <button id="download" class="btn">Download Drawing</button>
+    </div>
+    <canvas id="canvas"></canvas>
+  </body>
   <script src="./script.js"></script>
 </html>

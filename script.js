@@ -7,6 +7,8 @@ const clearCanvasBtn = document.getElementById("clean");
 const DownloadDrawingBtn = document.getElementById("download");
 const canvas = document.getElementById("canvas");
 
+// Line , eraser , clear drawing , Sqaure , downaload
+
 const ctx = canvas.getContext("2d");
 
 canvas.height = 420;
@@ -48,7 +50,17 @@ penTool.addEventListener("click", function () {
 });
 
 clearCanvasBtn.addEventListener("click", function () {
-    ctx.clearRect(0, 0, canvas.width, canvas.height)
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+});
+
+DownloadDrawingBtn.addEventListener("click", function () {
+  let canvasImage = canvas.toDataURL("image/png");
+  let anchorEle = document.createElement("a");
+  anchorEle.href = canvasImage;
+  anchorEle.download = "WhiteBoard.png";
+  document.body.appendChild(anchorEle);
+  anchorEle.click();
+  document.body.removeChild(anchorEle);
 });
 
 canvas.addEventListener("mousedown", startDraw);
